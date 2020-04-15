@@ -1,0 +1,83 @@
+// == Collection Custom
+//
+// ##
+
+.collection-grid {
+  display: none;
+}
+
+.grid-active {
+  display: block;
+}
+.collection-nav {
+    font-size: 20px;
+    margin: 0 0% 50px;
+    border-top: 1px black solid;
+    border-bottom: 1px black solid;
+    padding: 25px 0;
+    font-family: "Avenir Next", sans-serif;
+    font-weight: bold;
+    color: black;
+  ul {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 5%;
+  }
+  .collection-nav-link {
+    opacity: .5;
+    cursor: pointer;
+    &:hover {
+      opacity: 1;
+    }
+    &:active {
+      opacity: 1;
+    }
+    &.link-active {
+      opacity: 1;
+    }
+  }
+}
+
+.hero-hover {
+  display: block;
+  position: relative;
+  transition: transform .3s cubic-bezier(.38,.41,.27,1);
+
+  &:before {
+    position: absolute;
+    content: "";
+    width: 85%;
+    height: 100%;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: transparent;
+    box-shadow: 0 2rem 5rem 0 rgba(0,0,0,.3);
+    opacity: 0;
+    transition: opacity .3s cubic-bezier(.38,.41,.27,1);
+    z-index: 0;
+  }
+
+  &:after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    bottom: 0;
+    left: 0;
+    background: #000;
+    background: linear-gradient(180deg,rgba(0,0,0,.6),rgba(0,0,0,.75));
+    z-index: 0;
+    transition: opacity .3s cubic-bezier(.38,.41,.27,1);
+    opacity: 0;
+  }
+
+  &:hover {
+    transform: scale(1.02);
+
+    &:before,
+    &:after {
+      opacity: 1;
+    }
+  }
+}
