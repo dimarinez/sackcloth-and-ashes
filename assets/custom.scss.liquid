@@ -12,20 +12,23 @@
 .collection-nav {
     font-size: 20px;
     margin: 0 0% 50px;
-    border-top: 1px black solid;
-    border-bottom: 1px black solid;
+    border-top: 1px #000000 solid;
+    border-bottom: 1px #000000 solid;
     padding: 25px 0;
     font-family: "Avenir Next", sans-serif;
     font-weight: bold;
-    color: black;
+    color: #000000;
+
   ul {
     display: flex;
     justify-content: space-between;
     margin: 0 5%;
   }
-  .collection-nav-link {
+
+  .collection-nav-link:not(.shop-all-collection-link) {
     opacity: .5;
     cursor: pointer;
+
     &:hover {
       opacity: 1;
     }
@@ -38,46 +41,173 @@
   }
 }
 
-.hero-hover {
-  display: block;
-  position: relative;
-  transition: transform .3s cubic-bezier(.38,.41,.27,1);
+.mobile-collection-nav {
+  margin-bottom: 35px;
 
-  &:before {
+  .mobile-nav-title--caret {
     position: absolute;
-    content: "";
-    width: 85%;
-    height: 100%;
+    left: auto;
     top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: transparent;
-    box-shadow: 0 2rem 5rem 0 rgba(0,0,0,.3);
-    opacity: 0;
-    transition: opacity .3s cubic-bezier(.38,.41,.27,1);
-    z-index: 0;
-  }
+    padding: 15px 20px;
+    right: 0;
 
-  &:after {
-    position: absolute;
-    content: "";
-    width: 100%;
-    height: 100%;
-    bottom: 0;
-    left: 0;
-    background: #000;
-    background: linear-gradient(180deg,rgba(0,0,0,.6),rgba(0,0,0,.75));
-    z-index: 0;
-    transition: opacity .3s cubic-bezier(.38,.41,.27,1);
-    opacity: 0;
-  }
-
-  &:hover {
-    transform: scale(1.02);
-
-    &:before,
-    &:after {
-      opacity: 1;
+    svg {
+      transition: transform .4s cubic-bezier(.38,.41,.27,1);
     }
   }
+
+  .mobile-nav-title--container {
+    padding: 18px 20px;
+    border-style: solid;
+    border-width: 1px 0;
+    position: relative;
+    cursor: pointer;
+
+    &.is-expanded {
+      svg {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  .mobile-nav-title {
+    margin-bottom: 0;
+  }
+
+  .mobile-collection-nav-inner {
+    .collection-nav-link {
+      padding: 15px 20px;
+      border-bottom: 1px solid #ededed;
+      cursor: pointer;
+
+      &.link-active {
+        opacity: 0.5;
+      }
+    }
+  }
+}
+
+.product-card {
+  &:hover {
+    .quick-add-to-cart {
+      .btn {
+        opacity: 1;
+      }
+    }  
+  }
+  .quick-add-to-cart {
+    .btn {
+      color: #ffffff;
+      opacity: 0;
+      left: 0;
+      top: auto;
+      background-color: rgba(85, 85, 85, 0.5);
+      position: absolute;
+      display: block;
+      text-align: center;
+      padding: 16% 0;
+      z-index: 3;
+      transition: opacity .3s cubic-bezier(.38,.41,.27,1);
+      bottom: 0;
+      margin-right: 0;
+      font-weight: bold;
+      width: 100%;
+    }
+  }
+}
+
+.vertical-align-content {
+  .gf_column {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column;
+  }
+}
+
+#override .effect-zoom {
+  border-radius: 25px !important;
+  overflow: hidden;
+
+  @media screen and (min-width: 749px) {
+    border-radius: 0px !important;
+  }
+  &:hover {
+    .gf_hero-bg-wrap {
+      &:before,
+      &:after {
+        opacity: 1;
+      }
+    }
+  }
+  .gf_hero-bg-wrap {
+    &:before {
+      position: absolute;
+      content: "";
+      width: 85%;
+      height: 100%;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: transparent;
+      box-shadow: 0 2rem 5rem 0 rgba(0,0,0,.3);
+      opacity: 0;
+      transition: opacity .3s cubic-bezier(.38,.41,.27,1);
+      z-index: 0;
+    }
+  
+    &:after {
+      position: absolute;
+      content: "";
+      width: 100%;
+      height: 100%;
+      bottom: 0;
+      left: 0;
+      background: #000;
+      background: linear-gradient(180deg,rgba(0,0,0,.6),rgba(0,0,0,.75));
+      z-index: 0;
+      transition: opacity .3s cubic-bezier(.38,.41,.27,1);
+      opacity: 0;
+    }
+  }
+}
+
+// == animation classes
+
+.as-hover {
+  transition: transform .4s ease;
+
+  &.as-zoom {
+    transform: scale(0.95);
+  }
+}
+
+.arrow-block-left h2:before,
+.arrow-block-right h2:after {
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+}
+
+.arrow-block-left h2:before {
+  content: "\f104";
+  padding-right: 5px;
+  @media screen and (min-width: 481px) {
+    padding-right: 15px; 
+  }
+}
+
+.arrow-block-right h2:after {
+  content: "\f105";
+  padding-left: 5px;
+  @media screen and (min-width: 481px) {
+    padding-left: 15px;
+  }
+}
+
+// == Utility classes
+
+.d-none {
+  display: none;
 }

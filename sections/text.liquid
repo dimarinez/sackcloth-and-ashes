@@ -1,0 +1,53 @@
+
+<div class="text-align-center text-container">
+    {%- if section.settings.title != blank -%}
+        <h2 class="{{ section.settings.header_size }}">{{ section.settings.title }}</h2>
+    {%- endif -%}
+</div>
+
+{% schema %}
+{
+    "name": {
+        "en": "Text Section"
+    },
+    "class": "hero-section",
+    "settings": [
+        {
+            "type": "text",
+            "id": "title",
+            "label": {
+                "en": "Heading Text"
+            },
+            "default": {
+                "en": "Text"
+            }
+        },
+        {
+          "type": "select",
+          "id": "header_size",
+          "label": "Header Size",
+          "default": "h1 mega-title--large",
+          "options": [
+            {
+              "label" : "Large h1",
+              "value": "h1 mega-title--large"
+            },
+            {
+              "label" : "h1",
+              "value": "h1"
+            },
+            {
+              "label" : "h2",
+              "value": "h2"
+            }
+          ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Text",
+            "category": "Text"
+        }
+    ]
+}
+{% endschema %}

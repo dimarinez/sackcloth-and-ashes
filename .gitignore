@@ -1,2 +1,4 @@
 config.yml
 config/settings_data.json
+.DS_Store
+assets/.DS_Store

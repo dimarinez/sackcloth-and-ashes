@@ -1,7 +1,7 @@
 <div class="custom-collection-container">
-{% assign collection = collections[block.settings.main_collection] %}
-{% assign collection_title = collection.title | downcase | handleize %}
-<div data-section-id="{{ section.id }}" data-section-type="collection-template">
+  {% assign collection = collections[block.settings.main_collection] %}
+  {% assign collection_title = collection.title | downcase | handleize %}
+  <div data-section-id="{{ section.id }}" data-section-type="collection-template">
   <div class="collection-nav small--hide">
     <ul>
       {% for link in linklists[section.settings.main_linklist].links %}
@@ -13,8 +13,13 @@
     </ul>
   </div>
   <div class="medium-up--hide mobile-collection-nav" id="mcn">
-      <p class="mobile-nav-title">Best Sellers</p>
-    <div class="mobile-collection-nav-inner">
+    <div class="mobile-nav-title--container">
+      <h4 class="mobile-nav-title font-family-sans-serif">Best Sellers</h4>
+      <div class="mobile-nav-title--caret">
+        {% include 'icon-chevron-down' %}
+      </div>
+    </div>
+    <div class="mobile-collection-nav-inner" style="display: none;">
       <ul>
         {% for link in linklists[section.settings.main_linklist].links %}
           {% assign link_title = link.title | downcase | handleize %}
@@ -28,10 +33,10 @@
   <div class="page-width" id="Collection">
     {% for block in section.blocks %}
     {% assign collection = collections[block.settings.main_collection] %}
-{% assign collection_title = collection.title | downcase | handleize %}
-      <div class="grid grid--uniform grid--view-items{% if forloop.first %} grid-active{% endif %} collection-grid" data-collection="{{ collection_title }}">
+    {% assign collection_title = collection.title | downcase | handleize %}
+      <div class="grid grid__item--{{section.id}} grid--uniform grid--view-items{% if forloop.first %} grid-active{% endif %} collection-grid" data-collection="{{ collection_title }}">
         {% for product in collection.products %}
-          <div class="grid__item grid__item--{{section.id}} small--one-half medium-up--one-fifth" >
+          <div class="grid__item small--one-half medium-up--one-fifth" >
             {% include 'product-card-grid', max_height: 600 %}
           </div>
         {% endfor %}
@@ -51,12 +56,12 @@
 
     function mobileChange(){
       var active_link = $('.link-active').text();
+      $('.mobile-nav-title--container').removeClass('is-expanded')
       $('.mobile-nav-title').text(active_link);
-      $('.mobile-collection-nav-inner').removeClass('active');
+      $('.mobile-collection-nav-inner').slideToggle().removeClass('active');
     }
 
     $('.collection-nav-link').click(function(){
-      console.log('hello');
       var collection = $(this).attr('data-collection'),
           self = $(this);
 
@@ -64,8 +69,9 @@
       mobileChange();
     });
 
-    $('.mobile-nav-title').click(function(){
-       $('.mobile-collection-nav-inner').addClass('active');
+    $('.mobile-nav-title--container').click(function(){
+      $(this).toggleClass('is-expanded');
+      $('.mobile-collection-nav-inner').slideToggle().addClass('active');
     })
 
     // window.addEventListener('click', function(e){   
@@ -78,6 +84,7 @@
     // });
   })(jQuery);
 </script>
+
 {% schema %}
   {
     "name": "Collection pages",

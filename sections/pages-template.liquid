@@ -1,0 +1,111 @@
+{% for block in section.blocks %}
+  {% if page.handle == block.settings.page-handle %}
+  <!-- Insert products from the featured collection here  -->
+    {% for link in linklists[block.settings.page_blocks].links %}
+    {% assign link_title = link.title | downcase | handleize %}
+    {% case link_title %}
+      {% when 'hero' %}
+      <div class="collection-hero">
+          <div class="hero hero--medium hero-hero-all-collections hero__overlay box ratio-container lazyload js"
+          data-bgset="{% include 'bgset', image: block.settings.image %}" data-sizes="auto" data-parent-fit="cover"
+          style="background-image: url('{{ collection.image | img_url: '300x300' }});">
+          <div class="hero__inner">
+              <div class="page-width text-center">
+              <h1 class="h1 mega-title mega-title--large">
+                  <span role="text">
+                  {{ page.title }}
+                  </span>
+              </h1>
+              {% if block.settings.show_page_description and page.content != blank %}
+              <div class="rte-setting mega-subtitle mega-subtitle--large">
+                  <p>{{ page.content }}</p>
+              </div>
+              {% endif %}
+              </div>
+          </div>
+          </div>
+      </div>
+      {% when 'text' %}
+      <div class="h3">{{block.settings.text-block}}</div>
+    <!-- Place content for this section here -->
+        {% when 'slider' %}
+        <div class="template-slider">
+            
+        </div>
+    {% endcase %}
+    {% endfor %}
+  {% endif %}
+{% endfor %}
+
+
+
+{% schema %}
+{
+  "name": "Page Content",
+  "blocks": [
+  {
+    "type": "content",
+    "name": "Page Content",
+    "settings": [
+    {
+        "type": "text",
+        "id": "page-handle",
+        "label": "Page handle"
+    },
+    {
+        "type": "link_list",
+        "id": "page_blocks",
+        "label": "The Page Order of Blocks"
+    },
+    {
+        "type": "checkbox",
+        "id": "show_page_description",
+        "label": "Show page description",
+        "default": true
+    },
+    {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Hero Image"
+    },
+    {
+        "type": "text",
+        "id": "text-block",
+        "label": "Text"
+    },
+    {
+        "type": "checkbox",
+        "id": "show-slider",
+        "label": "Show Slider",
+        "default": true
+    },
+    {
+        "type": "image_picker",
+        "id": "slider-img-1",
+        "label": "Slider Image 1"
+    },
+    {
+        "type": "image_picker",
+        "id": "slider-img-2",
+        "label": "Slider Image 1"
+    },
+    {
+        "type": "image_picker",
+        "id": "slider-img-3",
+        "label": "Slider Image 1"
+    },
+    {
+        "type": "image_picker",
+        "id": "slider-img-4",
+        "label": "Slider Image 1"
+    },
+    {
+        "type": "image_picker",
+        "id": "slider-img-5",
+        "label": "Slider Image 1"
+    },
+    ]
+  }
+  ]
+}
+{% endschema %}

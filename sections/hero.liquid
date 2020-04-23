@@ -12,7 +12,7 @@
   {%- endstyle -%}
 {%- endif -%}
 {%- if section.settings.hero_hover and section.settings.button_link != blank-%}
-<a href="{{ section.settings.button_link }}" class="hero-hover">
+<a href="{{ section.settings.button_link }}" class="hero-hover as-hover">
 {%- endif -%}
 <div data-section-id="{{ section.id }}" data-section-type="hero-section" class="{% unless section.settings.hero_hover %}hero-container{% endunless %}">
   {%- if section.settings.hero_layout == 'fixed_width' -%}

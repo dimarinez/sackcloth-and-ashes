@@ -39,15 +39,17 @@
   {% endif %}
   <header class="site-header">
       <div class="site-header__container">
-        <div class="site-header__cart">
-          <a href="{{ routes.cart_url }}" class="site-header__icon site-header__cart">
-            {% include 'icon-cart' %}
-            <span class="icon__fallback-text">{{ 'layout.cart.title' | t }}</span>
-            <div id="CartCount" class="site-header__cart-count{% if cart.item_count == 0 %} hide{% endif %}" data-cart-count-bubble>
-              <span data-cart-count>{{ cart.item_count }}</span>
-              <span class="icon__fallback-text medium-up--hide">{{ 'layout.cart.items_count' | t: count: cart.item_count }}</span>
-            </div>
-          </a>
+        <div class="site-header__left">
+          <div class="site-header__cart">
+            <a href="{{ routes.cart_url }}" class="site-header__icon site-header__cart">
+              {% include 'icon-cart' %}
+              <span class="icon__fallback-text">{{ 'layout.cart.title' | t }}</span>
+              <div id="CartCount" class="site-header__cart-count{% if cart.item_count == 0 %} hide{% endif %}" data-cart-count-bubble>
+                <span data-cart-count>{{ cart.item_count }}</span>
+                <span class="icon__fallback-text medium-up--hide">{{ 'layout.cart.items_count' | t: count: cart.item_count }}</span>
+              </div>
+            </a>
+          </div>
         </div>
         <div class="site-header__logo">
           {% if section.settings.logo %}
@@ -71,13 +73,15 @@
             <a class="site-header__logo-link" href="{{ routes.root_url }}">{{ shop.name }}</a>
           {% endif %}
         </div>
-        <div class="site-header__menu-container">
-          {% unless linklists[section.settings.main_linklist] == blank %}
-            <button type="button" class="btn--link site-header__icon site-header__menu js-mobile-nav-toggle mobile-nav--open" aria-controls="MobileNav"  aria-expanded="false" aria-label="{{ 'layout.navigation.menu' | t }}">
-              {% include 'icon-hamburger' %}
-              {% include 'icon-close' %}
-            </button>
-          {% endunless %}
+        <div class="site-header__right">
+          <div class="site-header__menu-container">
+            {% unless linklists[section.settings.main_linklist] == blank %}
+              <button type="button" class="btn--link site-header__icon site-header__menu js-mobile-nav-toggle mobile-nav--open" aria-controls="MobileNav"  aria-expanded="false" aria-label="{{ 'layout.navigation.menu' | t }}">
+                {% include 'icon-hamburger' %}
+                {% include 'icon-close' %}
+              </button>
+            {% endunless %}
+          </div>
         </div>
     </div>
     <nav class="mobile-nav-wrapper" role="navigation">

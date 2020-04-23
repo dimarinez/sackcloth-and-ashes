@@ -1992,7 +1992,7 @@ this.Shopify.theme.PredictiveSearchComponent = (function(PredictiveSearch) {
     return true;
   };
 
-  PredictiveSearchComponent.prototype.destroy = function() {
+  /* PredictiveSearchComponent.prototype.destroy = function() {
     this.close();
 
     if (isFunction(this.callbacks.onBeforeDestroy)) {
@@ -2019,7 +2019,7 @@ this.Shopify.theme.PredictiveSearchComponent = (function(PredictiveSearch) {
   PredictiveSearchComponent.prototype.clearAndClose = function() {
     this.nodes.input.value = '';
     this.close();
-  };
+  }; */
 
   /**
    * Utilities
@@ -2957,21 +2957,24 @@ theme.Slideshow = (function() {
 
   function slideshowPostInitA11ySetup() {
     var $slides = this.$slideshow.find(selectors.slides);
+    var roleAttr = $slides.attr('role');
 
-    $slides.removeAttr('role').removeAttr('aria-labelledby');
-    this.$dots
-      .removeAttr('role')
-      .find('li')
-      .removeAttr('role')
-      .removeAttr('aria-selected')
-      .each(function() {
-        var $dot = $(this);
-        var ariaControls = $dot.attr('aria-controls');
-        $dot
-          .removeAttr('aria-controls')
-          .find('a')
-          .attr('aria-controls', ariaControls);
-      });
+    if (typeof roleAttr !== typeof undefined && roleAttr !== false) {
+      $slides.removeAttr('role').removeAttr('aria-labelledby');
+      this.$dots
+        .removeAttr('role')
+        .find('li')
+        .removeAttr('role')
+        .removeAttr('aria-selected')
+        .each(function() {
+          var $dot = $(this);
+          var ariaControls = $dot.attr('aria-controls');
+          $dot
+            .removeAttr('aria-controls')
+            .find('a')
+            .attr('aria-controls', ariaControls);
+        });
+    }
   }
 
   function beforeChange(event, slick, currentSlide, nextSlide) {
