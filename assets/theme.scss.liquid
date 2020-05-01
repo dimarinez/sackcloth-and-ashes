@@ -403,7 +403,7 @@ $color-btn-primary-text-white: $color-text-white;
 // Hover and focus states
 $color-text-focus: adaptiveColor($color-text, 0);
 $color-overlay-text-focus: adaptiveColor($color-text, 0);
-$color-btn-primary-focus: adaptiveColor($color-text, 0);
+$color-btn-primary-focus: $color-text;
 $color-btn-primary-focus-white: adaptiveColor($color-text-white, 0);
 $color-btn-social-focus: adaptiveColor($color-text, 0);
 $color-small-button-text-border-focus: adaptiveColor($color-text, 0);
@@ -1487,7 +1487,6 @@ h1 {
 h2 {
   font-size: em(floor($font-size-header * 0.78));
   text-transform: uppercase;
-  letter-spacing: 0.1em;
 
   @include media-query($small) {
     font-size: em(floor(($font-size-header * 0.78) * 0.9));
@@ -1961,7 +1960,6 @@ a[href^="tel"] {
     &:focus {
       background-color: $color-btn-primary-focus-white;
       color: $color-btn-primary-focus;
-      border-color: $color-btn-primary-focus-white;
     }
 
   }
@@ -1986,7 +1984,6 @@ a[href^="tel"] {
     &:focus {
       background-color: $color-btn-primary-focus;
       color: $color-btn-primary-focus-white;
-      border-color: $color-btn-primary-focus;
     }
 
   }
@@ -2011,7 +2008,7 @@ a[href^="tel"] {
 
   &:not([disabled]):hover,
   &:focus {
-    color: $color-btn-primary-text;
+    color: $color-btn-primary-text-white;
     background-color: $color-btn-primary-focus;
   }
 }
@@ -2284,14 +2281,9 @@ select {
   line-height: 1.2;
   border-radius: $border-radius;
 
-  &:focus {
-    border-color: darken($color-border-form, 10%);
-  }
-
   &[disabled] {
     cursor: default;
     background-color: $color-disabled;
-    border-color: $color-disabled-border;
   }
 
   &.input--error {
@@ -3009,6 +3001,30 @@ hr {
   }
 }
 
+/* Product Detail Page */
+
+.product-single {
+  @include media-query($medium-up) {
+    padding-top: 30px;
+  }
+  .product-single__media-group {
+    @include media-query($medium-up) {
+      display: flex;
+      flex-direction: row-reverse;
+    }
+    .product-single__thumbnails {
+      @include media-query($medium-up) {
+        flex-wrap: nowrap;
+        flex-direction: column;
+      }
+    }
+    .thumbnails-wrapper {
+      @include media-query($medium-up) {
+        margin-right: 45px;
+      }
+    }
+  }
+}
 
 .grid-view-item__link {
   display: block;
@@ -3662,13 +3678,9 @@ $color-blankstate-background: rgba($color-body-text, 0.1);
   overflow-anchor: none;
 }
 
-.product-single__title {
-  margin-bottom: 0.5rem;
-}
-
 .product__price,
 .featured-product__price {
-  font-size: 1.25em;
+  font-size: 24px;
 }
 
 .product__policies {
@@ -3680,7 +3692,16 @@ $color-blankstate-background: rgba($color-body-text, 0.1);
 
 .product-form {
   width: auto;
-  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+
+  .product-form__item--quantity {
+  }
+}
+
+.NullsgifDiv {
+  margin-left: -150px;
+  margin-bottom: 20px !important;
 }
 
 .product-form__controls-group {
@@ -3697,20 +3718,13 @@ $color-blankstate-background: rgba($color-body-text, 0.1);
   margin-top: 15px;
 }
 
+.product-form__item--submit {
+  flex-basis: 200px;
+}
+
 .product-form__item {
-  flex-grow: 0;
-  flex-basis: 100%;
   margin-bottom: 10px;
-  padding: 0;
-
-  @include media-query($large-up) {
-    flex-basis: 50%;
-    padding: 0 5px;
-
-    .product-single--large-image & {
-      flex-basis: 100%;
-    }
-  }
+  padding: 0 5px;
 
   label {
     display: block;
@@ -3729,12 +3743,8 @@ $color-blankstate-background: rgba($color-body-text, 0.1);
   }
 }
 
-.product-form__item--submit {
-  @include flex(1 1 300px);
-}
-
 .product-form__item--no-variants {
-  max-width: 400px;
+  max-width: 300px;
 }
 
 .product-form__item--payment-button {
@@ -3819,8 +3829,8 @@ $color-blankstate-background: rgba($color-body-text, 0.1);
   padding-right: 5px;
   white-space: normal;
   margin-top: 0;
-  margin-bottom: 10px;
-  min-height: 44px;
+  padding: 4px 0;
+  min-height: 0;
 
   .product-single--small-media &,
   .product-single--full-media & {
@@ -3867,6 +3877,9 @@ $color-blankstate-background: rgba($color-body-text, 0.1);
 
 .product-single__description {
   margin-top: $grid-gutter;
+  border-top: 1px solid #bababa;
+  font-size: 16px;
+  padding-top: $grid-gutter;
 }
 
 .product__quantity-error {
@@ -4090,7 +4103,6 @@ $color-blankstate-background: rgba($color-body-text, 0.1);
 .product-single__thumbnails {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 15px;
   margin-left: -9px;
   margin-right: -9px;
 
@@ -4499,7 +4511,7 @@ $color-blankstate-background: rgba($color-body-text, 0.1);
   display: flex;
   flex-direction: column;
   max-width: 20rem;
-  margin: 0 auto;
+  margin: 0 auto 40px;
 
   @include media-query ($medium-up) {
     display: block;
@@ -4879,6 +4891,90 @@ $color-blankstate-background: rgba($color-body-text, 0.1);
   }
 }
 
+/*================ Quantity Selectors ================*/
+.js-qty {
+  display: inline-block;
+  position: relative;
+  max-width: 100px;
+  min-width: 75px;
+  overflow: visible;
+
+  input {
+    min-height: 0;
+    padding: 5px 0;
+    display: block;
+    background: none;
+    text-align: center;
+    width: 100%;
+    margin: 0;
+  }
+}
+
+.js-qty__adjust {
+  position: absolute;
+  right: 1px;
+  cursor: pointer;
+  text-align: center;
+  width: 20px;
+  height: 40%;
+  border: none;
+  background-color: $color-text-white;
+  background-repeat: no-repeat;
+  background-size: 7.5px 4.5px;
+  background-position: center center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+
+  &:focus,
+  &:active {
+    background-color: darken($color-text-white, 4%);
+    outline: none;
+  }
+}
+
+.js-qty__adjust--plus {
+  top: 3px;
+  background-image: url({{ 'icon-chevron-up.png' | asset_url }});
+}
+
+.js-qty__adjust--minus {
+  bottom: 3px;
+  background-image: url({{ 'icon-chevron-down.png' | asset_url }});
+}
+
+/*================ Quantity Selectors in Ajax Cart ================*/
+.ajaxcart__qty {
+  @extend .js-qty;
+  max-width: 90px;
+
+  .is-loading & {
+    opacity: 0.5;
+    transition: none;
+  }
+}
+
+.ajaxcart__qty-adjust {
+  @extend .js-qty__adjust;
+}
+
+.ajaxcart__qty--plus {
+  @extend .js-qty__adjust--plus;
+}
+
+.ajaxcart__qty--minus {
+  @extend .js-qty__adjust--minus;
+}
+
+.ajaxcart-item__price-strikethrough {
+  float: right;
+}
+
+.ajaxcart__aty--gift-wrap .ajaxcart__qty-num {
+  border: none;
+}
 
 
 /*================ MODULES ================*/
@@ -4994,6 +5090,11 @@ $color-blankstate-background: rgba($color-body-text, 0.1);
   }
 }
 
+.site-header__cart-count[data-cart-count-show="0"],
+.site-header__cart-count[data-cart-count-show="items"] {
+  display: none;
+}
+
 .site-header__icons-wrapper {
   position: relative;
   @include display-flexbox();
@@ -5044,14 +5145,16 @@ $color-blankstate-background: rgba($color-body-text, 0.1);
   align-items: center;
   justify-content: center;
   position: absolute;
-  right: 0.4rem;
-  top: 0.2rem;
   font-weight: bold;
   background-color: $color-btn-primary;
   color: $color-btn-primary-text-white;
   border-radius: 50%;
-  min-width: 1em;
-  height: 1em;
+  margin: auto;
+  bottom: -2px;
+  width: 15px;
+  height: 15px;
+  left: 0;
+  right: 0;
 
   span {
     font-family: 'Avenir Next';
@@ -6358,9 +6461,21 @@ $nav-button-padding: 15px;
   padding-left: 9px;
   max-width: 293px;
   width: 100%;
+  animation: slideUp .3s forwards;
 
   &.js-menu--is-open {
     display: block;
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
   }
 }
 
@@ -6923,12 +7038,20 @@ $transition-controls-slideshow: color 0.2s $ease-transition,
   }
 }
 
+.product-single__media-group {
+  + .grid__item {
+    @include media-query($medium-up) {
+      padding-left: 45px;
+    }  
+  }
+}
+
 .price {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   margin-top: 0;
-  margin-bottom: 0;
+  margin-bottom: 15px;
 
   @include media-query($small) {
     font-size: em($font-size-base - 1);
@@ -7421,6 +7544,10 @@ $toolbar-height-small: 46px;
     font-size: 14px;
     color: $color-text-white;
     font-weight: $font-weight-body--bold;
+
+    &:hover {
+      color: $color-text-white;
+    }
   }
 }
 

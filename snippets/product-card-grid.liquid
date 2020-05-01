@@ -37,7 +37,9 @@
     </div>
     <form method="post" action="/cart/add" class="quick-add-to-cart">
       <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
-      <input min="1" type="hidden" id="quantity" name="quantity" value="1"/>
+      <div class="hide">
+        <input min="1" type="number" id="quantity" name="quantity" value="1"/>
+      </div>
       <input type="submit" value="Add to cart" class="btn" />
     </form>
     <div class="placeholder-background placeholder-background--animation" data-image-placeholder></div>

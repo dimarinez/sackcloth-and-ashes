@@ -19,7 +19,7 @@
         {% include 'icon-chevron-down' %}
       </div>
     </div>
-    <div class="mobile-collection-nav-inner" style="display: none;">
+    <div class="mobile-collection-nav-inner">
       <ul>
         {% for link in linklists[section.settings.main_linklist].links %}
           {% assign link_title = link.title | downcase | handleize %}
@@ -47,6 +47,9 @@
 </div>
 <script>
   (function($){
+    var heightOfEleNav = $('.mobile-collection-nav-inner').outerHeight();
+    $('<style type="text/css"> .mobile-collection-nav-inner.active{ max-height: '+ heightOfEleNav +'px; } .mobile-collection-nav-inner {max-height: 0;} </style>').appendTo("head");
+
     function gridChange(collection, activeLink){
       $('.link-active').removeClass('link-active');
       activeLink.addClass('link-active');
@@ -58,7 +61,7 @@
       var active_link = $('.link-active').text();
       $('.mobile-nav-title--container').removeClass('is-expanded')
       $('.mobile-nav-title').text(active_link);
-      $('.mobile-collection-nav-inner').slideToggle().removeClass('active');
+      $('.mobile-collection-nav-inner').removeClass('active');
     }
 
     $('.collection-nav-link').click(function(){
@@ -71,17 +74,8 @@
 
     $('.mobile-nav-title--container').click(function(){
       $(this).toggleClass('is-expanded');
-      $('.mobile-collection-nav-inner').slideToggle().addClass('active');
+      $('.mobile-collection-nav-inner').toggleClass('active');
     })
-
-    // window.addEventListener('click', function(e){   
-    //   if (document.getElementById('mcn').contains(e.target)){
-    //     $('.mobile-collection-nav-inner').addClass('active');
-    //   } 
-    //   else{
-    //     $('.active').removeClass('active');
-    //   }
-    // });
   })(jQuery);
 </script>
 

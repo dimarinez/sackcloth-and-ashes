@@ -4530,7 +4530,6 @@ window.theme = window.theme || {};
       if (!componentInstance) {
         return;
       }
-      componentInstance.destroy();
       componentInstance = null;
     }
 
@@ -4603,8 +4602,6 @@ window.theme = window.theme || {};
       if (!componentInstance) {
         return;
       }
-
-      componentInstance.destroy();
       componentInstance = null;
     }
 

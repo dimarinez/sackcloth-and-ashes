@@ -230,7 +230,18 @@
               <textarea name="note" id="CartSpecialInstructions" class="cart-note__input" data-cart-notes>{{ cart.note }}</textarea>
             </div>
           {%- endif -%}
-          <div class="grid__item text-right small--text-center{% if section.settings.cart_notes_enable %} medium-up--one-half{% endif %}">
+          {% if section.settings.cart_gift_wrap_enable %}
+          <div class="cart__gift grid__item medium-up--one-half">
+            <div class="media--flex">
+              <div class="gift-image media__asset cart__image-wrapper">
+                <img class="cart__image" src="{{ 'img-gift-wrap.jpg' | asset_img_url: '95x95', scale: 2 }}" alt="gift wrap">
+              </div>
+
+              {% include 'gift-wrapping' %}
+            </div>
+          </div>
+        {% endif %}
+          <div class="grid__item text-right {% if section.settings.cart_notes_enable or section.settings.cart_gift_wrap_enable %} medium-up--one-half{% endif %}">
 
             {%- assign cartDiscounts = 'template ' | split: ' ' -%}
             {%- if cart.cart_level_discount_applications.size > 0 -%}
@@ -270,11 +281,11 @@
               <div class="cart__submit-controls">
                 {%- unless section.settings.cart_ajax_enable -%}
                 <input type="submit" name="update"
-                  class="cart__submit btn btn--secondary"
+                  class="cart__submit btn btn--secondary btn-flat--black"
                   value="{{ 'cart.general.update' | t }}">
                 {%- endunless -%}
                 <input type="submit" name="checkout"
-                  class="cart__submit btn btn--small-wide"
+                  class="cart__submit btn btn--small-wide btn-flat--black"
                   value="{{ 'cart.general.checkout' | t }}">
               </div>
 
@@ -378,6 +389,12 @@
         "zh-TW": "在顧客進行變更時立即更新購物車"
       },
       "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "cart_gift_wrap_enable",
+      "label": "Enable cart gift wrap",
+      "default": false
     },
     {
       "type": "checkbox",
