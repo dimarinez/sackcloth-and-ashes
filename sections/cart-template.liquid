@@ -19,7 +19,7 @@
         <tbody data-cart-line-items>
           {%- for item in cart.items -%}
             <tr class="cart__row" data-cart-item data-cart-item-key="{{ item.key }}" data-cart-item-url="{{ item.url }}" data-cart-item-title="{{ item.title }}" data-cart-item-index="{{ forloop.index }}" data-cart-item-quantity="{{ item.quantity }}">
-              <td class="cart__meta small--text-left" data-cart-table-cell>
+              <td class="cart__meta small--text-left no-padding-left" data-cart-table-cell>
                 <div class="cart__product-information">
                   <div class="cart__image-wrapper">
                     <img class="cart__image{% if item.image == null %} hide{% endif %}" src="{{ item | img_url: 'x190' }}" alt="{{ item.image.alt | escape }}" data-cart-item-image>
@@ -191,7 +191,7 @@
                   <span class="cart__qty-error-message" data-cart-quantity-error-message></span>
                 </div>
               </td>
-              <td class="cart__final-price text-right small--hide" data-cart-item-line-price>
+              <td class="cart__final-price text-right small--hide no-padding-right" data-cart-item-line-price>
                 {%- comment -%}
                   Markup template for discount item
                 {%- endcomment -%}

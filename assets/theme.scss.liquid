@@ -1901,6 +1901,10 @@ a {
   &:not([disabled]):hover,
   &:focus {
     color: $color-text-focus;
+
+    .site-header__cart-count {
+      background-color: $color-text-focus;
+    }
   }
 
   &.classic-link {
@@ -2058,6 +2062,7 @@ a[href^="tel"] {
   border: 0;
   margin: 0;
   color: $color-text;
+  outline: 0;
   text-align: left;
 
   &:not([disabled]):hover,
@@ -4986,18 +4991,43 @@ $color-blankstate-background: rgba($color-body-text, 0.1);
 .site-header {
   background-color: $color-body;
 
+  .site-header__cart {
+    top: -1px;
+
+    svg {
+      width: 22px;
+      height: 28px;
+    }
+  }
+
+  .site-header__right {
+    top: 2px;
+    position: relative;
+  }
+
   .site-header__container {
     padding: 0 11px;
     position: relative;
+    background-color: $color-body;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 55px;
+    z-index: 1;
+
+    .site-header__right,
+    .site-header__left {
+      width: 42px;
+    }
 
     @include media-query($medium-up) { 
+      height: 85px;
+
       .site-header__right,
       .site-header__left {
         display: flex;
-        flex: 1;
+        position: relative;
+        z-index: 1;
 
         .site-header__cart {
           margin-right: auto;
@@ -5010,8 +5040,16 @@ $color-blankstate-background: rgba($color-body-text, 0.1);
     }
   }
 
+  .site-header__menu-container {
+    height: 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   @include media-query($medium-up) {
-    padding: 0 $gutter-site;
+    height: 85px;
+    padding: 0 40px;
 
     &.logo--center {
       padding-top: $grid-gutter;
@@ -5023,8 +5061,14 @@ $color-blankstate-background: rgba($color-body-text, 0.1);
 /// Logo
 
 .site-header__logo {
-  margin: 15px 0;
+  position: absolute;
+  margin: 0 auto;
+  left: 0;
+  align-items: center;
+  display: flex;
+  right: 0;
   justify-content: center;
+  align-items: center;
 
   .logo-align--center & {
     text-align: center;
@@ -5150,7 +5194,7 @@ $color-blankstate-background: rgba($color-body-text, 0.1);
   color: $color-btn-primary-text-white;
   border-radius: 50%;
   margin: auto;
-  bottom: -2px;
+  bottom: -4px;
   width: 15px;
   height: 15px;
   left: 0;
@@ -6456,26 +6500,17 @@ $nav-button-padding: 15px;
   top: 100%;
   right: 0;
   background-color: $color-body;
-  display: none;
   overflow: hidden;
   padding-left: 9px;
   max-width: 293px;
+  z-index: -1;
   width: 100%;
-  animation: slideUp .3s forwards;
+  transform: translate3d(0, -100%, 0);
+  transition: transform 0.45s cubic-bezier(0.29, 0.63, 0.44, 1);
 
   &.js-menu--is-open {
-    display: block;
-  }
-}
-
-@keyframes slideUp {
-  0% {
-    transform: translateY(-10px);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
+    transition: transform 0.45s cubic-bezier(0.29, 0.63, 0.44, 1);
+    transform: translate3d(0, 0, 0);
   }
 }
 

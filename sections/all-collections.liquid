@@ -2,112 +2,141 @@
     {% assign collection = collections[block.settings.main_collection] %}
     {% assign collection_title = collection.title | downcase | handleize %}
     <div data-section-id="{{ section.id }}" data-section-type="collection-template">
-        <div class="collection-nav small--hide">
-            <ul>
-                {% for link in linklists[section.settings.main_linklist].links %}
-                {% assign link_title = link.title | downcase | handleize %}
-                <li class="collection-nav-link shop-all-collection-link" data-collection="{{ link_title }}">
-                    <a href="{{ link.url }}">{{ link.title | capitalize }}</a>
-                </li>
-                {% endfor %}
-            </ul>
+    <div class="collection-nav small--hide">
+      <ul>
+        {% for link in linklists[section.settings.main_linklist].links %}
+          {% assign link_title = link.title | downcase | handleize %}
+          <li class="collection-nav-link {% if link_title == 'best-sellers'%} link-active{% endif %}" data-collection="{{ link_title }}" >
+              {{ link.title | capitalize }}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="medium-up--hide mobile-collection-nav" id="mcn">
+      <div class="mobile-nav-title--container">
+        <h4 class="mobile-nav-title font-family-sans-serif">Best Sellers</h4>
+        <div class="mobile-nav-title--caret">
+          {% include 'icon-chevron-down' %}
         </div>
-        <div class="medium-up--hide mobile-collection-nav" id="mcn">
-            <div class="mobile-nav-title--container">
-                <h4 class="mobile-nav-title font-family-sans-serif">Shop All</h4>
-                <div class="mobile-nav-title--caret">
-                    {% include 'icon-chevron-down' %}
-                </div>
-            </div>
-            <div class="mobile-collection-nav-inner" style="display: none;">
-                <ul>
-                    {% for link in linklists[section.settings.main_linklist].links %}
-                    {% assign link_title = link.title | downcase | handleize %}
-                    <li class="collection-nav-link" data-collection="{{ link_title }}">
-                        <a href="{{ link.url }}">{{ link.title | capitalize }}</a>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-
+      </div>
+      <div class="mobile-collection-nav-inner">
+        <ul>
+          {% for link in linklists[section.settings.main_linklist].links %}
+            {% assign link_title = link.title | downcase | handleize %}
+            <li class="collection-nav-link {% if link_title == 'best-sellers'%} link-active{% endif %}" data-collection="{{ link_title }}" >
+                {{ link.title | capitalize }}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <div id="Collection">
         {% for block in section.blocks %}
         {% assign collection = collections[block.settings.main_collection] %}
         {% assign collection_title = collection.title | downcase | handleize %}
-        {% if collection.image %}
-        <div class="collection-hero">
-            <div class="hero hero--medium hero-hero-all-collections hero__overlay box ratio-container lazyload js"
-                data-bgset="{% include 'bgset', image: collection.image %}" data-sizes="auto" data-parent-fit="cover"
-                style="background-image: url('{{ collection.image | img_url: '300x300' }});">
-                <div class="hero__inner">
-                    <div class="page-width text-center">
-                        <h2 class="h1 mega-title mega-title--large">
-                            <span role="text">
-                                <span class="visually-hidden">{{ 'collections.general.collection_label' | t }}: </span>
-                                {{ collection.title }}
-                            </span>
-                        </h2>
-                        {% if collection.description != blank %}
-                        <div class="rte-setting mega-subtitle mega-subtitle--large">
-                            <p>{{ collection.description }}</p>
+        <div class="hero-grid{% if forloop.first %} grid-active{% endif %}" data-collection="{{ collection_title }}">
+            {% if collection.image %}
+            <div class="collection-hero">
+                <div class="hero hero--medium hero-hero-all-collections hero__overlay box ratio-container lazyload js"
+                    data-bgset="{% include 'bgset', image: collection.image %}" data-sizes="auto" data-parent-fit="cover"
+                    style="background-image: url('{{ collection.image | img_url: '300x300' }});">
+                    <div class="hero__inner">
+                        <div class="page-width text-center">
+                            <h2 class="h1 mega-title mega-title--large">
+                                <span role="text">
+                                    <span class="visually-hidden">{{ 'collections.general.collection_label' | t }}: </span>
+                                    {{ collection.title }}
+                                </span>
+                            </h2>
+                            {% if collection.description != blank %}
+                            <div class="rte-setting mega-subtitle mega-subtitle--large">
+                                <p>{{ collection.description }}</p>
+                            </div>
+                            {% endif %}
                         </div>
-                        {% endif %}
                     </div>
                 </div>
             </div>
-        </div>
-        {% endif %}
-        <div class="grid grid--uniform grid--view-items" data-collection="{{ collection_title }}">
-            <div class="page-width">
-                {% for product in collection.products %}
-                <div class="grid__item grid__item--{{section.id}} small--one-half medium-up--one-fifth">
-                    {% include 'product-card-grid', max_height: 600 %}
+            {% endif %}
+            <div class="grid grid--uniform grid--view-items">
+                <div class="page-width">
+                    {% for product in collection.products %}
+                    <div class="grid__item grid__item--{{section.id}} small--one-half medium-up--one-fifth">
+                        {% include 'product-card-grid', max_height: 600 %}
+                    </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
             </div>
         </div>
         {% endfor %}
     </div>
-</div>
+  </div>
+  </div>
+  <script>
+    (function($){
+  
+      function gridChange(collection, activeLink){
+        $('.link-active').removeClass('link-active');
+        activeLink.addClass('link-active');
+        $('.grid-active').removeClass('grid-active');
+        $('.hero-grid[data-collection="' + collection + '"]').addClass('grid-active');
+      }
+  
+      function mobileChange(){
+        var active_link = $('.link-active').text();
+        $('.mobile-nav-title--container').removeClass('is-expanded')
+        $('.mobile-nav-title').text(active_link);
+        $('.mobile-collection-nav-inner').removeClass('active');
+      }
+  
+      $('.collection-nav-link').click(function(){
+        var collection = $(this).attr('data-collection'),
+            self = $(this);
+  
+        gridChange(collection, self);
+        mobileChange();
+      });
+  
+      $('.mobile-nav-title--container').click(function(){
+        $(this).toggleClass('is-expanded');
+        $('.mobile-collection-nav-inner').toggleClass('active');
+      });
 
-<script>
-    (function ($) {
-        $('.mobile-nav-title--container').click(function () {
-            $(this).toggleClass('is-expanded');
-            $('.mobile-collection-nav-inner').slideToggle().addClass('active');
-        })
+    var heightOfEleNav = $('.mobile-collection-nav-inner').outerHeight();
+    $('<style type="text/css"> .mobile-collection-nav-inner.active{ max-height: '+ heightOfEleNav +'px; } .mobile-collection-nav-inner {max-height: 0;} </style>').appendTo("head");
     })(jQuery);
-</script>
-{% schema %}
-{
-"name": "Collection pages",
-"max_blocks": 11,
-"settings": [
-{
-"type": "link_list",
-"id": "main_linklist",
-"label": "Links"
-}
-],
-"blocks": [
-{
-"type": "collection",
-"name": "Collection",
-"settings": [
-{
-"type": "collection",
-"id": "main_collection",
-"label": "Collection"
-}
-]
-}
-],
-"class": "hero-section",
-"presets": [
-{
-"name": "Collection Custom",
-"category": "Collection"
-}
-]
-}
-{% endschema %}
+  </script>
+  
+  {% schema %}
+    {
+      "name": "Collection pages",
+      "max_blocks": 11,
+      "settings": [
+        {
+          "type": "link_list",
+          "id": "main_linklist",
+          "label": "Links"
+        }
+      ],
+      "blocks": [
+        {
+          "type": "collection",
+          "name": "Collection",
+          "settings": [
+            {
+              "type": "collection",
+              "id": "main_collection",
+              "label": "Collection"
+            }
+          ]
+        }
+      ],
+      "class": "hero-section",
+      "presets": [
+        {
+          "name": "Collection Custom",
+          "category": "Collection"
+        }
+      ]
+    }
+  {% endschema %}

@@ -1,18 +1,16 @@
 (function($) {
     $(document).ready(function() {
-        if ($('.carousel-with-text').length > 0) {
-            $(window).load(function() {
-                function setsHeight() {
-                    $('.carousel-with-text').each(function() {
-                        $(this).find('.vertical-align-middle').height('auto');
-                        var carouselHeight = $(this).height();
-                        $(this).find('.vertical-align-middle').height(carouselHeight);
-                    });            
+        if ($('.hero-hover').length > 0) {
+            $('.hero-hover').each(function() {
+                $(this).parent('.effect-zoom').addClass('mobile-border-radius');
+            });
+        }
+
+        if ($('.product-details').length > 0) {
+            $('.product-details').each(function() {
+                if ($(this).find('.product-details__item--property').length === 0) {
+                    $(this).addClass('hide');
                 }
-                setsHeight();
-                $( window ).resize(function() {
-                    setsHeight();
-                });
             });
         }
     });
